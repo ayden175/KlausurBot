@@ -11,7 +11,7 @@ class Bot(discord.Client):
     async def on_ready(self):
         self.admin = discord.utils.get(self.get_all_members(), name='Ayden', discriminator='7318')
         self.known_guilds = []
-        self.settings = ['known_guilds', 'settings_bot', 'settings_general', 'settings_rooms', 'settings_size']
+        self.settings = ['known_guilds', 'settings_bot', 'settings_general', 'settings_rooms']
         self.settings_bot = {'default': 'bot'}
         self.settings_general = {'default': 'general'}
         self.settings_rooms = {'default': 'voice-'}
@@ -329,8 +329,9 @@ class Bot(discord.Client):
             except_message = (f"Der Command war: {issued_command_by}\n"
                               f"Hier ist der Stracktrace:\n{excep_traceback}")
             if not self.admin is None:
-                print(f"Es ist ein Fehler bei dem Klausurserver von {', '.join(m.display_name for m in self.tutor[guild])} aufgetreten!\n" + except_message)
-                #await self.admin.send(f"Es ist ein Fehler bei dem Klausurserver von {', '.join(m.display_name for m in self.tutor[guild])} aufgetreten!\n" + except_message)
+                exception_text = f"Es ist ein Fehler bei dem Klausurserver von {', '.join(m.display_name for m in self.tutor[guild])} aufgetreten!\n" + except_message
+                print(exception_text)
+                await self.admin.send(exception_text)
             else:
                 await self.tutor[guild][0].send("Es ist ein Fehler aufgetreten! Bitte leite diese Informationen weiter, damit der Fehler behoben werden kann.\n" + except_message)
 
