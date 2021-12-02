@@ -121,10 +121,10 @@ class Bot(discord.Client):
         if str(member) in self.tutor_username:
             await member.add_roles(self.tutor_role[member.guild.id])
             self.tutor[member.guild.id].append(member)
-            await self.admin.send(f'Tutor {member} has joined {member.guild}.')
+            #await self.admin.send(f'Tutor {member} has joined {member.guild}.')
             print(f'Tutor {member} has joined {member.guild}.')
         else:
-            await self.admin.send(f'Student {member} has joined {member.guild}.')
+            #await self.admin.send(f'Student {member} has joined {member.guild}.')
             print(f'Student {member} has joined {member.guild}.')
 
     async def on_message(self, message):
@@ -237,8 +237,8 @@ class Bot(discord.Client):
 
                 self.started_at[guild] = time.time()
                 self.timer[guild] = []
-                self.timer[guild].append(Timer(45*60, partial(self.announce, message.guild, "@everyone Die Hälfte der Zeit ist um, ihr habt noch 45 Minuten!")))
-                self.timer[guild].append(Timer(80*60, partial(self.announce, message.guild, "@everyone Die Zeit ist fast um, ihr habt noch 10 Minuten!")))
+                self.timer[guild].append(Timer(45*60, partial(self.announce, message.guild, "@everyone Die Hälfte der Zeit ist um, ihr habt noch 45 Minuten!", timer=False)))
+                self.timer[guild].append(Timer(80*60, partial(self.announce, message.guild, "@everyone Die Zeit ist fast um, ihr habt noch 10 Minuten!", timer=False)))
                 self.timer[guild].append(Timer(90*60, partial(self.announce, message.guild, "@everyone Die Zeit für die Klausur ist um!")))
                 await message.reply(f'Beep boop, ich habe einen Klausurtimer für 90 Minuten gestellt! Ich werde zwischendurch Benachrichtigungen zur Zeit schicken', mention_author=False)
 
